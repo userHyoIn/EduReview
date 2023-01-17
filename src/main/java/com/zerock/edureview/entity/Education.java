@@ -20,4 +20,5 @@ public class Education {
     private Long eno;
 
     private String title;
+
 }
