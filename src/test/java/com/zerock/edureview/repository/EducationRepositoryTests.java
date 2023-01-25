@@ -49,7 +49,7 @@ public class EducationRepositoryTests {
                 educationImageRepository.save(educationImage);
             }
 
-            System.out.println("==================================================");
+            System.out.println("===================================================");
         });
     }
 
