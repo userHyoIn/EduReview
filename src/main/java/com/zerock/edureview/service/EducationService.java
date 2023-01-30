@@ -2,6 +2,8 @@ package com.zerock.edureview.service;
 
 import com.zerock.edureview.dto.EducationDTO;
 import com.zerock.edureview.dto.EducationImageDTO;
+import com.zerock.edureview.dto.PageRequestDTO;
+import com.zerock.edureview.dto.PageResultDTO;
 import com.zerock.edureview.entity.Education;
 import com.zerock.edureview.entity.EducationImage;
 
@@ -13,6 +15,32 @@ import java.util.stream.Collectors;
 public interface EducationService {
 
     Long register(EducationDTO educationDTO);
+
+    PageResultDTO<EducationDTO, Object[]> getList(PageRequestDTO requestDTO);
+
+    EducationDTO getEducation(Long eno);
+
+    default EducationDTO entitiesToDTO(Education education, List<EducationImage> educationImages, Double avg, Long reviewCnt){
+        EducationDTO educationDTO = EducationDTO.builder()
+                .eno(education.getEno())
+                .title(education.getTitle())
+                .regDate(education.getRegDate())
+                .modDate(education.getModDate())
+                .build();
+
+        List<EducationImageDTO> educationImageDTOList = educationImages.stream().map(educationImage -> {
+            return EducationImageDTO.builder().imgName(educationImage.getImgName())
+                    .path(educationImage.getPath())
+                    .uuid(educationImage.getUuid())
+                    .build();
+        }).collect(Collectors.toList());
+
+        educationDTO.setImageDTOList(educationImageDTOList);
+        educationDTO.setAvg(avg);
+        educationDTO.setReviewCnt(reviewCnt.intValue());
+
+        return educationDTO;
+    }
 
     default Map<String, Object>dtoToEntity(EducationDTO educationDTO){
 

@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface EducationRepository extends JpaRepository<Education, Long> {
 
-    @Query("select e, ei, avg(coalesce(r.grade,0)),  count(r) from Education e " +
+    @Query("select e, ei, avg(coalesce(r.grade,0)),  count(distinct r) from Education e " +
             "left outer join EducationImage ei on ei.education = e " +
             "left outer join Review  r on r.education = e group by e ")
     Page<Object[]> getListPage(Pageable pageable);

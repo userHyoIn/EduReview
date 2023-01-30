@@ -30,9 +30,9 @@ public class ReviewRepositoryTests {
             Long eno = (long)(Math.random()*100) + 1;
 
             //review num
-            Long eid = ((long)(Math.random()*100) + 1);
+            Long mid = ((long)(Math.random()*100) + 1);
 
-            Member member = Member.builder().eid(eid).build();
+            Member member = Member.builder().mid(mid).build();
 
             Review educationReview = Review.builder()
                     .member(member)
@@ -67,9 +67,9 @@ public class ReviewRepositoryTests {
     @Test
     public void testDeleteMember(){
 
-        Long eid = 1L;
+        Long mid = 1L;
 
-        Member member = Member.builder().eid(eid).build();
+        Member member = Member.builder().mid(mid).build();
 
         //기존
         //memberRepository.deleteById(eid);
@@ -77,6 +77,6 @@ public class ReviewRepositoryTests {
 
         //순서 주의
         reviewRepository.deleteByMember(member);
-        memberRepository.deleteById(eid);
+        memberRepository.deleteById(mid);
     }
 }

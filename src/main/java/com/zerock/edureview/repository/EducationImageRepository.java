@@ -9,5 +9,4 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface EducationImageRepository extends JpaRepository<EducationImage, Long> {
-
 }

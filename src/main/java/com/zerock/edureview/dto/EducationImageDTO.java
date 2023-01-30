@@ -22,8 +22,8 @@ public class EducationImageDTO {
 
     public String getImageURL(){
         try {
-            return URLEncoder.encode(path + "/" + uuid + "_" + imgName, "UTF-8");
-        }catch (UnsupportedEncodingException e){
+            return URLEncoder.encode(path+"/"+uuid+"_"+imgName,"UTF-8");
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         return "";
@@ -31,8 +31,8 @@ public class EducationImageDTO {
 
     public String getThumbnailURL(){
         try {
-            return URLEncoder.encode(path + "/s_" + uuid + "_" + imgName, "UTF-8");
-        }catch (UnsupportedEncodingException e){
+            return URLEncoder.encode(path+"/s_"+uuid+"_"+imgName,"UTF-8");
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         return "";
