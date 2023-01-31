@@ -18,7 +18,7 @@ public class ReviewController {
 
     private final ReviewService reviewService;
 
-    @GetMapping("/{mno}/all")
+    @GetMapping("/{eno}/all")
     public ResponseEntity<List<ReviewDTO>> getList(@PathVariable("eno") Long eno){
 
         log.info("list ------------------------------------------------------");
