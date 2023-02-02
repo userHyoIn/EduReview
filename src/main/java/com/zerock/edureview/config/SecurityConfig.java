@@ -19,16 +19,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception{
+    protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
                 .antMatchers("/sample/all").permitAll()
                 .antMatchers("/sample/member").hasRole("USER");
-        http.formLogin();   //인가/인증에 문제 시 로그인 화면
+
+        http.formLogin(); //인가/인증에 문제시 로그인 화면
         http.csrf().disable();
-        http.logout();
+        //http.logout();
+        http.oauth2Login();
     }
 
+    /*
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
 
@@ -36,4 +39,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .password("$2a$10$/pMsT0G0lVdaDEuWfP0NBeVDjBF1oVuaQURGVdDEhcGMDUEf21pXu")
                 .roles("USER");
     }
+    */
 }

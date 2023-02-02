@@ -44,6 +44,13 @@ dependencies {
 	implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '3.1.1'
 
 	compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-java8time'
+	compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5'
+
+	// https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity5
+	implementation group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5', version: '3.0.4.RELEASE'
+
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
 
 	// https://mvnrepository.com/artifact/net.coobird/thumbnailator
 	implementation group: 'net.coobird', name: 'thumbnailator', version: '0.4.19'
