@@ -1,6 +1,9 @@
 package com.zerock.edureview.controller;
 
+import com.zerock.edureview.security.dto.ClubAuthMemberDTO;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,19 +13,40 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/sample/")
 public class SampleController {
 
-    //로그인을 하지 않아도 접근 할수 있음
     @GetMapping("/all")
     public void exAll(){
-        log.info("exAll............................................");
+        log.info("exAll..........");
     }
-    //로그인 사용자만 접근할 수 있음
-    @GetMapping("/member")
-    public void exMember(){
-        log.info("exMember.........................................");
-    }
-    //관리자 권한이 있는 사용자만 접근할 수 있음
+
+//    @GetMapping("/member")
+//    public void exMember(){
+//        log.info("exMember..........");
+//    }
+
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin")
     public void exAdmin(){
-        log.info("exAdmin...........................................");
+        log.info("exAdmin..........");
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/member")
+    public void exMember(@AuthenticationPrincipal ClubAuthMemberDTO clubAuthMember){
+
+        log.info("exMember..........");
+
+        log.info("-------------------------------");
+        log.info(clubAuthMember);
+
+    }
+
+    @PreAuthorize("#clubAuthMember != null && #clubAuthMember.username eq \"user95@zerock.org\"")
+    @GetMapping("/exOnly")
+    public String exMemberOnly(@AuthenticationPrincipal ClubAuthMemberDTO clubAuthMember){
+
+        log.info("exMemberOnly.............");
+        log.info(clubAuthMember);
+
+        return "/sample/admin";
     }
 }
