@@ -1,7 +1,11 @@
 package com.zerock.edureview.config;
 
+import com.zerock.edureview.security.filter.ApiCheckFilter;
+import com.zerock.edureview.security.filter.ApiLoginFilter;
+import com.zerock.edureview.security.handler.ApiLoginFailHandler;
 import com.zerock.edureview.security.handler.ClubLoginSuccessHandler;
 import com.zerock.edureview.security.service.ClubUserDetailsService;
+import com.zerock.edureview.security.util.JWTUtil;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +16,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @Log4j2
@@ -38,6 +43,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.logout();
         http.oauth2Login().successHandler(successHandler());
         http.rememberMe().tokenValiditySeconds(60*60*7).userDetailsService(userDetailsService); //7days
+        http.addFilterBefore(apiCheckFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(apiLoginFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean
@@ -54,4 +61,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .roles("USER");
     }
     */
+
+    @Bean
+    public ApiLoginFilter apiLoginFilter() throws Exception{
+
+        ApiLoginFilter apiLoginFilter =  new ApiLoginFilter("/api/login", jwtUtil());
+        apiLoginFilter.setAuthenticationManager(authenticationManager());
+
+        apiLoginFilter
+                .setAuthenticationFailureHandler(new ApiLoginFailHandler());
+
+        return apiLoginFilter;
+    }
+
+    @Bean
+    public JWTUtil jwtUtil() {
+        return new JWTUtil();
+    }
+
+    @Bean
+    public ApiCheckFilter apiCheckFilter(){
+        return new ApiCheckFilter("/notes/**/*", jwtUtil());
+    }
 }
