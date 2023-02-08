@@ -1,7 +1,10 @@
 package com.zerock.edureview.service;
 
+import com.zerock.edureview.dto.BoardDTO;
 import com.zerock.edureview.dto.ReviewDTO;
+import com.zerock.edureview.entity.Board;
 import com.zerock.edureview.entity.Education;
+import com.zerock.edureview.entity.Member;
 import com.zerock.edureview.entity.Review;
 import com.zerock.edureview.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;

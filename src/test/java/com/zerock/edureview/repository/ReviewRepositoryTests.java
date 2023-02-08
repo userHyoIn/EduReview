@@ -1,5 +1,6 @@
 package com.zerock.edureview.repository;
 
+import com.zerock.edureview.entity.ClubMember;
 import com.zerock.edureview.entity.Education;
 import com.zerock.edureview.entity.Member;
 import com.zerock.edureview.entity.Review;
@@ -69,14 +70,14 @@ public class ReviewRepositoryTests {
 
         Long mid = 1L;
 
-        Member member = Member.builder().mid(mid).build();
+        //Member member = Member.builder().mid(mid).build();
 
         //기존
         //memberRepository.deleteById(eid);
         //reviewRepository.deleteByMember(member);
 
         //순서 주의
-        reviewRepository.deleteByMember(member);
-        memberRepository.deleteById(mid);
+        //reviewRepository.deleteByMember(member);
+        //memberRepository.deleteById(mid);
     }
 }

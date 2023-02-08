@@ -18,7 +18,7 @@ import java.io.PrintWriter;
 public class ApiCheckFilter extends OncePerRequestFilter {
 
     private AntPathMatcher antPathMatcher;
-    private  String pattern;
+    private String pattern;
     private JWTUtil jwtUtil;
 
     public ApiCheckFilter(String pattern, JWTUtil jwtUtil){
@@ -28,17 +28,17 @@ public class ApiCheckFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-            throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        log.info("RequestURI: " + request.getRequestURI());
+        log.info("REQUESTURI: " + request.getRequestURI());
+
         log.info(antPathMatcher.match(pattern, request.getRequestURI()));
 
         if(antPathMatcher.match(pattern, request.getRequestURI())) {
 
-            log.info("ApiCheckFilter-----------------------------------------------------------------------------------");
-            log.info("ApiCheckFilter-----------------------------------------------------------------------------------");
-            log.info("ApiCheckFilter-----------------------------------------------------------------------------------");
+            log.info("ApiCheckFilter.................................................");
+            log.info("ApiCheckFilter.................................................");
+            log.info("ApiCheckFilter.................................................");
 
             boolean checkHeader = checkAuthHeader(request);
 
@@ -47,7 +47,7 @@ public class ApiCheckFilter extends OncePerRequestFilter {
                 return;
             }else {
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                //json 리턴 및 한글 깨짐 수정.
+                // json 리턴
                 response.setContentType("application/json;charset=utf-8");
                 JSONObject json = new JSONObject();
                 String message = "FAIL CHECK API TOKEN";
@@ -56,7 +56,6 @@ public class ApiCheckFilter extends OncePerRequestFilter {
 
                 PrintWriter out = response.getWriter();
                 out.print(json);
-
                 return;
             }
         }
@@ -70,13 +69,14 @@ public class ApiCheckFilter extends OncePerRequestFilter {
 
         String authHeader = request.getHeader("Authorization");
 
-        if(StringUtils.hasText(authHeader)){
+        if(StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ")){
             log.info("Authorization exist: " + authHeader);
-            try{
+
+            try {
                 String email = jwtUtil.validateAndExtract(authHeader.substring(7));
                 log.info("validate result: " + email);
-                checkResult = email.length() > 0;
-            }catch (Exception e) {
+                checkResult =  email.length() > 0;
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

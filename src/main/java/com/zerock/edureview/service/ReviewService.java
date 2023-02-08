@@ -23,7 +23,7 @@ public interface ReviewService {
         Review educationReview = Review.builder()
                 .reviewnum(educationReviewDTO.getReviewnum())
                 .education(Education.builder().eno(educationReviewDTO.getEno()).build())
-                .member(Member.builder().mid(educationReviewDTO.getMid()).build())
+                .member(Member.builder().email(educationReviewDTO.getEmail()).build())
                 .grade(educationReviewDTO.getGrade())
                 .text(educationReviewDTO.getText())
                 .build();
@@ -36,7 +36,7 @@ public interface ReviewService {
         ReviewDTO educationDTO = ReviewDTO.builder()
                 .reviewnum(educationReview.getReviewnum())
                 .eno(educationReview.getEducation().getEno())
-                .mid(educationReview.getMember().getMid())
+                //.mid(educationReview.getMember().getMid())
                 .nickname(educationReview.getMember().getNickname())
                 .email(educationReview.getMember().getEmail())
                 .grade(educationReview.getGrade())

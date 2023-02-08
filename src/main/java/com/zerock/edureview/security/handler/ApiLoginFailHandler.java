@@ -15,15 +15,13 @@ import java.io.PrintWriter;
 public class ApiLoginFailHandler implements AuthenticationFailureHandler {
 
     @Override
-    public void onAuthenticationFailure(HttpServletRequest request,
-                                        HttpServletResponse response,
-                                        AuthenticationException exception) throws IOException, ServletException {
+    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
 
-        log.info("login fail handler..................................................");
+        log.info("login fail handler................");
         log.info(exception.getMessage());
 
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        //json 리턴
+        // json 리턴
         response.setContentType("application/json;charset=utf-8");
         JSONObject json = new JSONObject();
         String message = exception.getMessage();

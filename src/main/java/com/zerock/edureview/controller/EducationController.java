@@ -2,9 +2,12 @@ package com.zerock.edureview.controller;
 
 import com.zerock.edureview.dto.EducationDTO;
 import com.zerock.edureview.dto.PageRequestDTO;
+import com.zerock.edureview.dto.ReviewDTO;
 import com.zerock.edureview.service.EducationService;
+import com.zerock.edureview.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +23,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class EducationController {
 
     private final EducationService educationService;
+    private final ReviewService reviewService;
+
 
     @GetMapping("/register")
+    @PreAuthorize("isAuthenticated()")
     public void register(){
 
     }

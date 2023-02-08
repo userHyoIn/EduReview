@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <th:block th:fragment="setContent(content)">
     <head>
@@ -60,15 +61,23 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                     </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/education/list">학원 리뷰 <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/board/list">게시판 <span class="sr-only">(current)</span></a>
+                    </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                        <th:button class="nav-link" sec:authorize="isAnonymous()" type="button" onclick="location.href='/login'">로그인</th:button>
+                        <!-- 인증된(로그인한) 사용자에게 보임 -->
+                        <th:button class="nav-link" sec:authorize="isAuthenticated()" type="button" onclick="location.href='/admin/logout'">로그아웃</th:button>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Dropdown
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">My Page</a>
                             <a class="dropdown-item" href="#">Another action</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Something else here</a>

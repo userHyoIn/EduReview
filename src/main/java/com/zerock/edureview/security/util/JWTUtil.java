@@ -11,6 +11,7 @@ import java.util.Date;
 
 @Log4j2
 public class JWTUtil {
+
     private String secretKey = "zerock12345678";
 
     //1month
